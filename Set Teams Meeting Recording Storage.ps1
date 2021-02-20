@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-Change the meeting recording storage location for a Meeting policy
+Change the meeting recording storage location for a Meeting policy - this is meeting policy specific
 .INPUTS
 CSV Path and Meeting Policy name
 .OUTPUTS
