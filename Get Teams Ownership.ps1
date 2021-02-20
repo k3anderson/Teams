@@ -24,24 +24,28 @@ $Teams = Get-Team -Archived $false
 
 Foreach ($Team in $Teams) {
     
-    $owners = Get-TeamUser -GroupId $Team.GroupID -Role Owner 
+    $TeamName = $Team.DisplayName
+    $TeamID = $Team.GroupID
+    $TeamVis = $Team.Visibility
+    
+    $owners = Get-TeamUser -GroupId $TeamID -Role Owner 
     
     If ($null -ne $owners) {
 
         $BuildArray = $owners
-        $BuildArray | Add-Member -MemberType NoteProperty "TeamName" -Value $Team.DisplayName 
-        $BuildArray | Add-Member -MemberType NoteProperty "TeamID" -Value $Team.GroupID
-        $BuildArray | Add-Member -MemberType NoteProperty "TeamType" -Value $Team.Visibility
+        $BuildArray | Add-Member -MemberType NoteProperty "TeamName" -Value $TeamName
+        $BuildArray | Add-Member -MemberType NoteProperty "TeamID" -Value $TeamID
+        $BuildArray | Add-Member -MemberType NoteProperty "TeamType" -Value $TeamVis
     
         $OwnerData += $BuildArray 
     }
     else {
-        $TeamName = $Team.DisplayName 
+        
         Write-Host "Ownerless Team: $TeamName"
         $OwnerlessCollection = New-Object PSObject -Property ([Ordered] @{
-                TeamID      = $Team.GroupID
-                DisplayName = $Team.DisplayName
-                TeamType    = $Team.Visibility
+                TeamID      = $TeamID
+                DisplayName = $TeamName
+                TeamType    = $TeamVis
             })
 
         $OwnerlessOutputCSV += $OwnerlessCollection
