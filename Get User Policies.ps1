@@ -21,7 +21,7 @@ Import-PSSession $Session -AllowClobber
 
 $CSVPath = "C:\Users\Desktop\TeamsUserPolicies.csv"
 
-#Get all assigned polcies
+#Get all assigned polcies - adjust to bring back what you need
 $TeamsUsers = Get-CsOnlineUser -Filter { Enabled -eq $True } | Select-Object DisplayName, `
     UserPrincipalName, `
     SipAddress, `
